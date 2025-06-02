@@ -7,7 +7,7 @@ from utils import validate_request_params, format_error_response, sanitize_strin
 
 logger = logging.getLogger(__name__)
 
-@app.route('/')
+@app.route('/api/')
 def index():
     """API root endpoint with basic information"""
     return jsonify({
