@@ -1,7 +1,8 @@
 import logging
 from flask import request, jsonify
-from app import app
+from app import app, db
 from utils import validate_request_params, format_error_response, sanitize_string
+from models import *
 #from api_client import AirVisualClient
 #from config import MAX_CITIES_PER_REQUEST
 
@@ -18,6 +19,61 @@ def index():
             "GET /": "List endpoints"
         }
     })
+
+@app.route('/api/users')
+def get_user():
+    users = User.query.all()
+    
+    users_data = [
+        {
+            "id": user.id,
+            "name": user.name
+        } for user in users
+    ]
+
+    return jsonify({
+        "data": users_data
+    }), 200
+    
+@app.route('/api/user')
+def get_user_with_get():
+    user_id = request.args.get('id')
+
+    user = User.query.get(user_id)
+
+    return jsonify({
+        "id": user.id,
+        "name": user.name
+    }), 200
+
+@app.route('/api/user', methods=['POST'])
+def get_user_with_post():
+    data = request.get_json()
+
+    user_id = data['id']
+    user = User.query.get(user_id)
+
+    return jsonify({
+        "id": user.id,
+        "name": user.name
+    }), 200
+
+@app.route('/api/post')
+def get_post_of_user():
+    user_id = request.args.get('user_id')
+
+    posts = Post.query.filter_by(user_id=user_id)
+
+    data_posts = [
+        {
+            "title": post.title,
+            "author": post.author.name
+        } for post in posts
+    ]
+
+    return jsonify({
+        "data": data_posts
+    }), 200
 
 @app.errorhandler(404)
 def not_found(e):
