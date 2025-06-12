@@ -75,6 +75,23 @@ def get_post_of_user():
         "data": data_posts
     }), 200
 
+@app.route('/api/get_word_cloud_dummy')
+def get_word_cloud_dummy():
+    data = [
+        ['JavaScript', 50],
+        ['HTML', 30],
+        ['CSS', 20],
+        ['React', 25],
+        ['Web', 15],
+        ['Cloud', 10],
+        ['Visualization', 18],
+        ['GitHub', 22]
+    ]
+
+    return jsonify({
+        "data": data
+    }), 200
+
 @app.errorhandler(404)
 def not_found(e):
     """Handle 404 errors"""
