@@ -20,72 +20,15 @@ def index():
         }
     })
 
-@app.route('/api/users')
-def get_user():
-    users = User.query.all()
-    
-    users_data = [
-        {
-            "id": user.id,
-            "name": user.name
-        } for user in users
-    ]
+@app.route('/api/get_word_cloud')
+def get_word_cloud():
+    wordcloud = WordCloud.query.limit(20).all()
 
-    return jsonify({
-        "data": users_data
-    }), 200
-    
-@app.route('/api/user')
-def get_user_with_get():
-    user_id = request.args.get('id')
-
-    user = User.query.get(user_id)
-
-    return jsonify({
-        "id": user.id,
-        "name": user.name
-    }), 200
-
-@app.route('/api/user', methods=['POST'])
-def get_user_with_post():
-    data = request.get_json()
-
-    user_id = data['id']
-    user = User.query.get(user_id)
-
-    return jsonify({
-        "id": user.id,
-        "name": user.name
-    }), 200
-
-@app.route('/api/post')
-def get_post_of_user():
-    user_id = request.args.get('user_id')
-
-    posts = Post.query.filter_by(user_id=user_id)
-
-    data_posts = [
-        {
-            "title": post.title,
-            "author": post.author.name
-        } for post in posts
-    ]
-
-    return jsonify({
-        "data": data_posts
-    }), 200
-
-@app.route('/api/get_word_cloud_dummy')
-def get_word_cloud_dummy():
     data = [
-        ['JavaScript', 50],
-        ['HTML', 30],
-        ['CSS', 20],
-        ['React', 25],
-        ['Web', 15],
-        ['Cloud', 10],
-        ['Visualization', 18],
-        ['GitHub', 22]
+        [
+            wc.word,
+            wc.count
+        ] for wc in wordcloud
     ]
 
     return jsonify({
@@ -107,3 +50,75 @@ def server_error(e):
     """Handle internal server errors"""
     logger.error(f"Internal server error: {str(e)}")
     return jsonify(format_error_response("Internal server error")), 500
+
+# @app.route('/api/users')
+# def get_user():
+#     users = User.query.all()
+    
+#     users_data = [
+#         {
+#             "id": user.id,
+#             "name": user.name
+#         } for user in users
+#     ]
+
+#     return jsonify({
+#         "data": users_data
+#     }), 200
+    
+# @app.route('/api/user')
+# def get_user_with_get():
+#     user_id = request.args.get('id')
+
+#     user = User.query.get(user_id)
+
+#     return jsonify({
+#         "id": user.id,
+#         "name": user.name
+#     }), 200
+
+# @app.route('/api/user', methods=['POST'])
+# def get_user_with_post():
+#     data = request.get_json()
+
+#     user_id = data['id']
+#     user = User.query.get(user_id)
+
+#     return jsonify({
+#         "id": user.id,
+#         "name": user.name
+#     }), 200
+
+# @app.route('/api/post')
+# def get_post_of_user():
+#     user_id = request.args.get('user_id')
+
+#     posts = Post.query.filter_by(user_id=user_id)
+
+#     data_posts = [
+#         {
+#             "title": post.title,
+#             "author": post.author.name
+#         } for post in posts
+#     ]
+
+#     return jsonify({
+#         "data": data_posts
+#     }), 200
+
+# @app.route('/api/get_word_cloud_dummy')
+# def get_word_cloud_dummy():
+#     data = [
+#         ['JavaScript', 50],
+#         ['HTML', 30],
+#         ['CSS', 20],
+#         ['React', 25],
+#         ['Web', 15],
+#         ['Cloud', 10],
+#         ['Visualization', 18],
+#         ['GitHub', 22]
+#     ]
+
+#     return jsonify({
+#         "data": data
+#     }), 200
