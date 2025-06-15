@@ -16,13 +16,14 @@ def index():
         "version": "1.0.0",
         "description": "REST API for C3 App",
         "endpoints": {
-            "GET /": "List endpoints"
+            "GET /": "List endpoints",
+            "GET /get_word_cloud": "Get word cloud data"
         }
     })
 
 @app.route('/api/get_word_cloud')
 def get_word_cloud():
-    wordcloud = WordCloud.query.limit(20).all()
+    wordcloud = WordCloud.query.filter_by(active=1).order_by(WordCloud.count.desc()).limit(20).all()
 
     data = [
         [
