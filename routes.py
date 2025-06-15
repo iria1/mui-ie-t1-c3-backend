@@ -25,6 +25,18 @@ def index():
 def get_word_cloud():
     wordcloud = WordCloud.query.filter_by(active=1).order_by(WordCloud.count.desc()).limit(20).all()
 
+    # normalize count for compatibility with frontend
+    MIN_SIZE = 10
+    MAX_SIZE = 50
+
+    counts = [wc.count for wc in wordcloud]
+    min_count = min(counts)
+    max_count = max(counts)
+
+    for wc in wordcloud:
+        normalized = (wc.count - min_count) / (max_count - min_count)
+        wc.count = int(MIN_SIZE + normalized * (MAX_SIZE - MIN_SIZE))
+
     data = [
         [
             wc.word,
