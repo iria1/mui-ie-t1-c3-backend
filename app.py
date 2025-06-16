@@ -15,8 +15,14 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
 
-# Enable CORS for all origins
-CORS(app, resources={r"/*": {"origins": "*", "supports_credentials": True}})
+ENV = os.environ.get("FLASK_ENV", "prod")
+
+print("currently on", ENV)
+
+if ENV == 'dev':
+    CORS(app, resources={r"/*": {"origins": "http://localhost", "supports_credentials": True}})
+else:
+    CORS(app, resources={r"/*": {"origins": "https://childcybercare.duckdns.org", "supports_credentials": True}})
 
 # Configure logging
 logger = logging.getLogger(__name__)
