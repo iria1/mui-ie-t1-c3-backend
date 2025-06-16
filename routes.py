@@ -23,7 +23,30 @@ def index():
 
 @app.route('/api/get_word_cloud')
 def get_word_cloud():
-    wordcloud = WordCloud.query.filter_by(active=1).order_by(WordCloud.count.desc()).limit(20).all()
+    arg = request.args.get('ver')
+
+    # check if dataset argument version is valid
+    # if unspecified, use default (ver 2)
+    if arg is None:
+        ver = 2
+    else:
+        # test if arg is int
+        # if not, fallback
+        try:
+            ver = int(arg)
+        except ValueError:
+            ver = 2
+        
+        # if version number is invalid, fallback
+        # currently only version 1 and 2 exists
+        if ver < 1 or ver > 2:
+            ver = 2
+
+    # query DB
+    wordcloud = WordCloud.query.filter_by(
+        active=1,
+        version=ver
+        ).order_by(WordCloud.count.desc()).limit(20).all()
 
     # normalize count for compatibility with frontend
     MIN_SIZE = 10
@@ -37,12 +60,42 @@ def get_word_cloud():
         normalized = (wc.count - min_count) / (max_count - min_count)
         wc.count = int(MIN_SIZE + normalized * (MAX_SIZE - MIN_SIZE))
 
+    # prepare data format
     data = [
         [
             wc.word,
             wc.count
         ] for wc in wordcloud
     ]
+
+    return jsonify({
+        "data": data
+    }), 200
+
+@app.route('/api/get_bully_stat')
+def get_bully_stat():
+    # query db
+    bullystat = BullyStatRegional.query.filter_by(active=1).all()
+
+    data = [
+        {
+            "region": bs.region,
+            "total_pct": bs.total_pct,
+            "male_pct": bs.male_pct,
+            "female_pct": bs.female_pct,
+            "source": bs.source
+        } for bs in bullystat
+    ]
+
+    return jsonify({
+        "data": data
+    }), 200
+
+@app.route('/api/get_bully_stat_region_list')
+def get_bully_stat_region_list():
+    bullystat = BullyStatRegional.query.filter_by(active=1).all()
+
+    data = [ bs.region for bs in bullystat ] 
 
     return jsonify({
         "data": data
