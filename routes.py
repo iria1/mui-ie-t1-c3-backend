@@ -3,8 +3,7 @@ from flask import request, jsonify
 from app import app, db
 from utils import validate_request_params, format_error_response, sanitize_string
 from models import *
-#from api_client import AirVisualClient
-#from config import MAX_CITIES_PER_REQUEST
+from sqlalchemy import func
 
 logger = logging.getLogger(__name__)
 
@@ -23,30 +22,43 @@ def index():
 
 @app.route('/api/get_word_cloud')
 def get_word_cloud():
-    arg = request.args.get('ver')
+    arg_ver = request.args.get('ver')
+    arg_count = request.args.get('count')
+
+    max_version = WordCloud.query.with_entities(func.max(WordCloud.version)).scalar()
 
     # check if dataset argument version is valid
-    # if unspecified, use default (ver 2)
-    if arg is None:
-        ver = 2
+    # if unspecified, use default (highest version)
+    if arg_ver is None:
+        ver = max_version
     else:
         # test if arg is int
         # if not, fallback
         try:
-            ver = int(arg)
+            ver = int(arg_ver)
         except ValueError:
-            ver = 2
+            ver = max_version
         
         # if version number is invalid, fallback
-        # currently only version 1 and 2 exists
-        if ver < 1 or ver > 2:
-            ver = 2
+        if ver < 1 or ver > max_version:
+            ver = max_version
+    
+    if arg_count is None:
+        count = 30
+    else:
+        try:
+            count = int(arg_count)
+        except ValueError:
+            count = 30
+        
+        if count < 1 or count > 50:
+            count = 30
 
     # query DB
     wordcloud = WordCloud.query.filter_by(
         active=1,
         version=ver
-        ).order_by(WordCloud.count.desc()).limit(20).all()
+        ).order_by(WordCloud.count.desc()).limit(count).all()
 
     # normalize count for compatibility with frontend
     MIN_SIZE = 10
