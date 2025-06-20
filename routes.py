@@ -113,9 +113,30 @@ def get_bully_stat():
 
 @app.route('/api/get_bully_stat_region_list')
 def get_bully_stat_region_list():
-    bullystat = BullyStatRegional.query.filter_by(active=1).all()
+    bullystat = BullyStatRegional.query.filter_by(active=1, region="ASEAN").all()
 
-    data = [ bs.region for bs in bullystat ] 
+    data = [
+        {
+            "code": bs.country,
+            "name": bs.country
+        } for bs in bullystat
+    ]
+
+    return jsonify({
+        "data": data
+    }), 200
+
+@app.route('/api/get_socmed_usage')
+def get_socmed_usage():
+    socmed = SocmedMental.query.all()
+
+    data = [
+        {
+            "x": float(sm.daily_socmed_usage_hrs),
+            "y": float(sm.daily_sleep_hrs),
+            "c": sm.mental_health_score
+        } for sm in socmed
+    ]
 
     return jsonify({
         "data": data
