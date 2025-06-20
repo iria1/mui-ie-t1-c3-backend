@@ -87,10 +87,18 @@ def get_word_cloud():
 @app.route('/api/get_bully_stat')
 def get_bully_stat():
     # query db
-    bullystat = BullyStatRegional.query.filter_by(active=1).all()
+    bullystat = BullyStatRegional.query.filter_by(active=1, region="ASEAN").all()
+
+    # if data is missing, replace with total_pct
+    for bs in bullystat:
+        if bs.female_pct is None:
+            bs.female_pct = bs.total_pct
+        if bs.male_pct is None:
+            bs.male_pct = bs.total_pct
 
     data = [
         {
+            "country": bs.country,
             "region": bs.region,
             "total_pct": bs.total_pct,
             "male_pct": bs.male_pct,
