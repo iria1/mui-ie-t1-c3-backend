@@ -1,7 +1,7 @@
 import logging
 from flask import request, jsonify
-from app import app, db
-from utils import validate_request_params, format_error_response, sanitize_string
+from app import app
+from utils import format_error_response
 from models import *
 from sqlalchemy import func
 
@@ -9,16 +9,10 @@ logger = logging.getLogger(__name__)
 
 @app.route('/api/')
 def index():
-    """API root endpoint with basic information"""
+    # health check
     return jsonify({
-        "name": "ChildCyberCare API",
-        "version": "1.0.0",
-        "description": "REST API for C3 App",
-        "endpoints": {
-            "GET /": "List endpoints",
-            "GET /get_word_cloud": "Get word cloud data"
-        }
-    })
+        "status": "OK"
+    }), 200
 
 @app.route('/api/get_word_cloud')
 def get_word_cloud():
@@ -43,6 +37,8 @@ def get_word_cloud():
         if ver < 1 or ver > max_version:
             ver = max_version
     
+    # show 30 (default) top words for the wordcloud
+    # can be adjusted to between 1 to 50
     if arg_count is None:
         count = 30
     else:
@@ -96,6 +92,7 @@ def get_bully_stat():
         if bs.male_pct is None:
             bs.male_pct = bs.total_pct
 
+    # prepare data format
     data = [
         {
             "country": bs.country,
@@ -113,8 +110,11 @@ def get_bully_stat():
 
 @app.route('/api/get_bully_stat_region_list')
 def get_bully_stat_region_list():
+    # query db
     bullystat = BullyStatRegional.query.filter_by(active=1, region="ASEAN").all()
 
+    # prepare data format
+    # chart.js requires code & name format for multi-select combo box
     data = [
         {
             "code": bs.country,
@@ -128,8 +128,11 @@ def get_bully_stat_region_list():
 
 @app.route('/api/get_socmed_usage')
 def get_socmed_usage():
+    # query db
     socmed = SocmedMental.query.all()
 
+    # prepare data format
+    # chart.js requires x,y,c for colored scatterplots
     data = [
         {
             "x": float(sm.daily_socmed_usage_hrs),
@@ -157,75 +160,3 @@ def server_error(e):
     """Handle internal server errors"""
     logger.error(f"Internal server error: {str(e)}")
     return jsonify(format_error_response("Internal server error")), 500
-
-# @app.route('/api/users')
-# def get_user():
-#     users = User.query.all()
-    
-#     users_data = [
-#         {
-#             "id": user.id,
-#             "name": user.name
-#         } for user in users
-#     ]
-
-#     return jsonify({
-#         "data": users_data
-#     }), 200
-    
-# @app.route('/api/user')
-# def get_user_with_get():
-#     user_id = request.args.get('id')
-
-#     user = User.query.get(user_id)
-
-#     return jsonify({
-#         "id": user.id,
-#         "name": user.name
-#     }), 200
-
-# @app.route('/api/user', methods=['POST'])
-# def get_user_with_post():
-#     data = request.get_json()
-
-#     user_id = data['id']
-#     user = User.query.get(user_id)
-
-#     return jsonify({
-#         "id": user.id,
-#         "name": user.name
-#     }), 200
-
-# @app.route('/api/post')
-# def get_post_of_user():
-#     user_id = request.args.get('user_id')
-
-#     posts = Post.query.filter_by(user_id=user_id)
-
-#     data_posts = [
-#         {
-#             "title": post.title,
-#             "author": post.author.name
-#         } for post in posts
-#     ]
-
-#     return jsonify({
-#         "data": data_posts
-#     }), 200
-
-# @app.route('/api/get_word_cloud_dummy')
-# def get_word_cloud_dummy():
-#     data = [
-#         ['JavaScript', 50],
-#         ['HTML', 30],
-#         ['CSS', 20],
-#         ['React', 25],
-#         ['Web', 15],
-#         ['Cloud', 10],
-#         ['Visualization', 18],
-#         ['GitHub', 22]
-#     ]
-
-#     return jsonify({
-#         "data": data
-#     }), 200
