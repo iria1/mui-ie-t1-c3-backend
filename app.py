@@ -20,7 +20,7 @@ ENV = os.environ.get("FLASK_ENV", "prod")
 print("currently on", ENV)
 
 if ENV == 'dev':
-    CORS(app, resources={r"/*": {"origins": "http://localhost", "supports_credentials": True}})
+    CORS(app, resources={r"/*": {"origins": "*", "supports_credentials": True}})
 else:
     CORS(app, resources={r"/*": {"origins": "https://childcybercare.duckdns.org", "supports_credentials": True}})
 
