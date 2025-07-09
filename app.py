@@ -4,8 +4,8 @@ from flask import Flask
 from flask_cors import CORS
 from models import *
 from flask_migrate import Migrate
-from db import db
-from handlers import register_error_handlers
+from utils.db import db
+from utils.error_handler import register_error_handlers
 from routes import api_bp
 
 # Create the Flask application

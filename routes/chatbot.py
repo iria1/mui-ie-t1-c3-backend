@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from werkzeug.exceptions import BadRequest
-from utils import validate_request_params, sanitize_string
+from utils.utility import validate_request_params, sanitize_string
+import time
 
 chatbot_bp = Blueprint('chatbot_bp', __name__, url_prefix='/chatbot')
 
@@ -15,6 +16,9 @@ def get_response_from_chatbot():
 
     data = request.get_json()
     message = sanitize_string(data['message'])
+
+    # simulate working
+    time.sleep(2)
 
     return jsonify({
         'data': {

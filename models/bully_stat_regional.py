@@ -1,4 +1,4 @@
-from db import db
+from utils.db import db
 
 class BullyStatRegional(db.Model):
     __tablename__ = 'data_bully_stat_regional'

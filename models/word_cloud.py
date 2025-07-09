@@ -1,4 +1,4 @@
-from db import db
+from utils.db import db
 
 class WordCloud(db.Model):
     __tablename__ = 'data_word_cloud'

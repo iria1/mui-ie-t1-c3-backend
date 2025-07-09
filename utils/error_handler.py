@@ -1,5 +1,5 @@
 from flask import jsonify
-from utils import format_error_response
+from utils.utility import format_error_response
 import logging
 
 logger = logging.getLogger(__name__)
