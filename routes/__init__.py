@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
-from .charts_routes import charts_bp
-from .chatbot_routes import chatbot_bp
+from .charts import charts_bp
+from .chatbot import chatbot_bp
 
 api_bp = Blueprint('api_bp', __name__, url_prefix='/api')
 
