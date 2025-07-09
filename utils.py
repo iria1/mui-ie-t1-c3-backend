@@ -53,7 +53,7 @@ def validate_request_params(request, required_params):
     if missing_params:
         error_msg = f"Missing required parameters: {', '.join(missing_params)}"
         logger.warning(error_msg)
-        return False, format_error_response(error_msg)
+        return False, error_msg
         
     return True, None
 

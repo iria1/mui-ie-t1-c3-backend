@@ -5,6 +5,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 def register_error_handlers(app):
+    @app.errorhandler(400)
+    def bad_request(e):
+        """Handle 400 errors"""
+        return jsonify(format_error_response(e.description)), 404
+
     @app.errorhandler(404)
     def not_found(e):
         """Handle 404 errors"""
