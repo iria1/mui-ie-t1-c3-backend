@@ -2,8 +2,11 @@ import os
 import logging
 from flask import Flask
 from flask_cors import CORS
-from models import db
+from models import *
 from flask_migrate import Migrate
+from db import db
+from handlers import register_error_handlers
+from routes import api_bp
 
 # Create the Flask application
 app = Flask(__name__)
@@ -17,17 +20,22 @@ migrate = Migrate(app, db)
 
 ENV = os.environ.get("FLASK_ENV", "prod")
 
-print("currently on", ENV)
-
 if ENV == 'dev':
     CORS(app, resources={r"/*": {"origins": "*", "supports_credentials": True}})
 else:
     CORS(app, resources={r"/*": {"origins": "https://childcybercare.duckdns.org", "supports_credentials": True}})
 
 # Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    #filename='c3app.log',
+    #filemode='a',
+    #format='%(asctime)s %(levelname)s %(name)s - %(message)s'
+)
 logger = logging.getLogger(__name__)
 
-# Import routes after app is created to avoid circular imports
-from routes import *
+# Import routes
+app.register_blueprint(api_bp)
+register_error_handlers(app)
 
 logger.info("Flask API initialized")

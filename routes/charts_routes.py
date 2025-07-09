@@ -1,20 +1,10 @@
-import logging
-from flask import request, jsonify
-from app import app
-from utils import format_error_response
-from models import *
+from flask import Blueprint, request, jsonify
+from models import WordCloud, BullyStatRegional, SocmedMental
 from sqlalchemy import func
 
-logger = logging.getLogger(__name__)
+charts_bp = Blueprint('charts_bp', __name__, url_prefix='/charts')
 
-@app.route('/api/')
-def index():
-    # health check
-    return jsonify({
-        "status": "OK"
-    }), 200
-
-@app.route('/api/get_word_cloud')
+@charts_bp.route('/get_word_cloud')
 def get_word_cloud():
     arg_ver = request.args.get('ver')
     arg_count = request.args.get('count')
@@ -80,7 +70,7 @@ def get_word_cloud():
         "data": data
     }), 200
 
-@app.route('/api/get_bully_stat')
+@charts_bp.route('/get_bully_stat')
 def get_bully_stat():
     # query db
     bullystat = BullyStatRegional.query.filter_by(active=1, region="ASEAN").all()
@@ -108,7 +98,7 @@ def get_bully_stat():
         "data": data
     }), 200
 
-@app.route('/api/get_bully_stat_region_list')
+@charts_bp.route('/get_bully_stat_region_list')
 def get_bully_stat_region_list():
     # query db
     bullystat = BullyStatRegional.query.filter_by(active=1, region="ASEAN").all()
@@ -126,7 +116,7 @@ def get_bully_stat_region_list():
         "data": data
     }), 200
 
-@app.route('/api/get_socmed_usage')
+@charts_bp.route('/get_socmed_usage')
 def get_socmed_usage():
     # query db
     socmed = SocmedMental.query.all()
@@ -144,19 +134,3 @@ def get_socmed_usage():
     return jsonify({
         "data": data
     }), 200
-
-@app.errorhandler(404)
-def not_found(e):
-    """Handle 404 errors"""
-    return jsonify(format_error_response("The requested endpoint does not exist")), 404
-
-@app.errorhandler(405)
-def method_not_allowed(e):
-    """Handle 405 errors"""
-    return jsonify(format_error_response("Method not allowed for this endpoint")), 405
-
-@app.errorhandler(500)
-def server_error(e):
-    """Handle internal server errors"""
-    logger.error(f"Internal server error: {str(e)}")
-    return jsonify(format_error_response("Internal server error")), 500
