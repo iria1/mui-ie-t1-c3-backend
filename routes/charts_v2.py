@@ -15,13 +15,12 @@ def get_word_cloud():
     if arg_label is None:
         label = "Not Cool"
     else:
-        match arg_label:
-            case "nc":
-                label = "Not Cool"
-            case "ng":
-                label = "No Go"
-            case _:
-                label = "Not Cool"
+        if arg_label == "nc":
+            label = "Not Cool"
+        elif arg_label == "ng":
+            label = "No Go"
+        else:
+            label = "Not Cool"
     
     # show 30 (default) top words for the wordcloud
     # can be adjusted to between 1 to 50
