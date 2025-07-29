@@ -1,15 +1,17 @@
 from flask import Blueprint, request, jsonify
-from models import WordCloud, BullyStatRegional, SocmedMental
+from models import WordCloudV1, BullyStatRegional, SocmedMental
 from sqlalchemy import func
+from utils.jwt import require_token
 
-charts_bp = Blueprint('charts_bp', __name__, url_prefix='/charts')
+charts_v1_bp = Blueprint('charts_v1_bp', __name__, url_prefix='/v1/charts')
 
-@charts_bp.route('/get_word_cloud')
+@charts_v1_bp.route('/get_word_cloud')
+@require_token
 def get_word_cloud():
     arg_ver = request.args.get('ver')
     arg_count = request.args.get('count')
 
-    max_version = WordCloud.query.with_entities(func.max(WordCloud.version)).scalar()
+    max_version = WordCloudV1.query.with_entities(func.max(WordCloudV1.version)).scalar()
 
     # check if dataset argument version is valid
     # if unspecified, use default (highest version)
@@ -41,10 +43,10 @@ def get_word_cloud():
             count = 30
 
     # query DB
-    wordcloud = WordCloud.query.filter_by(
+    wordcloud = WordCloudV1.query.filter_by(
         active=1,
         version=ver
-        ).order_by(WordCloud.count.desc()).limit(count).all()
+        ).order_by(WordCloudV1.count.desc()).limit(count).all()
 
     # normalize count for compatibility with frontend
     MIN_SIZE = 10
@@ -70,7 +72,8 @@ def get_word_cloud():
         "data": data
     }), 200
 
-@charts_bp.route('/get_bully_stat')
+@charts_v1_bp.route('/get_bully_stat')
+@require_token
 def get_bully_stat():
     # query db
     bullystat = BullyStatRegional.query.filter_by(active=1, region="ASEAN").all()
@@ -98,7 +101,8 @@ def get_bully_stat():
         "data": data
     }), 200
 
-@charts_bp.route('/get_bully_stat_region_list')
+@charts_v1_bp.route('/get_bully_stat_region_list')
+@require_token
 def get_bully_stat_region_list():
     # query db
     bullystat = BullyStatRegional.query.filter_by(active=1, region="ASEAN").all()
@@ -116,7 +120,8 @@ def get_bully_stat_region_list():
         "data": data
     }), 200
 
-@charts_bp.route('/get_socmed_usage')
+@charts_v1_bp.route('/get_socmed_usage')
+@require_token
 def get_socmed_usage():
     # query db
     socmed = SocmedMental.query.all()

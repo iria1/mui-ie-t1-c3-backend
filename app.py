@@ -1,29 +1,26 @@
-import os
 import logging
 from flask import Flask
 from flask_cors import CORS
 from models import *
 from flask_migrate import Migrate
+from utils.config import MYSQL_CONN_STR, ENV, APP_URL
 from utils.db import db
 from utils.error_handler import register_error_handlers
 from routes import api_bp
 
 # Create the Flask application
 app = Flask(__name__)
-#app.secret_key = os.environ.get("SESSION_SECRET", "default-dev-key")
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("MYSQL_CONN_STR", "")
+app.config['SQLALCHEMY_DATABASE_URI'] = MYSQL_CONN_STR
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 migrate = Migrate(app, db)
 
-ENV = os.environ.get("FLASK_ENV", "prod")
-
 if ENV == 'dev':
     CORS(app, resources={r"/*": {"origins": "*", "supports_credentials": True}})
 else:
-    CORS(app, resources={r"/*": {"origins": "https://childcybercare.duckdns.org", "supports_credentials": True}})
+    CORS(app, resources={r"/*": {"origins": APP_URL, "supports_credentials": True}})
 
 # Configure logging
 logging.basicConfig(

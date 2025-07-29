@@ -1,11 +1,13 @@
 from flask import Blueprint, request, jsonify
 from werkzeug.exceptions import BadRequest
 from utils.utility import validate_request_params, sanitize_string
+from utils.jwt import require_token
 import time
 
-chatbot_bp = Blueprint('chatbot_bp', __name__, url_prefix='/chatbot')
+chatbot_v1_bp = Blueprint('chatbot_v1_bp', __name__, url_prefix='/v1/chatbot')
 
-@chatbot_bp.route('/get_response_from_chatbot', methods=['POST'])
+@chatbot_v1_bp.route('/get_response_from_chatbot', methods=['POST'])
+@require_token
 def get_response_from_chatbot():
     if not request.is_json:
         raise BadRequest('Request must be JSON')

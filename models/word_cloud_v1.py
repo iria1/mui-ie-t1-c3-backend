@@ -1,7 +1,7 @@
 from utils.db import db
 
-class WordCloud(db.Model):
-    __tablename__ = 'data_word_cloud'
+class WordCloudV1(db.Model):
+    __tablename__ = 'data_word_cloud_v1'
 
     id = db.Column(db.Integer, primary_key=True)
     version = db.Column(db.Integer)
