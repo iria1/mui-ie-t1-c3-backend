@@ -3,7 +3,6 @@ from werkzeug.exceptions import BadRequest
 from utils.utility import validate_request_params, sanitize_string
 from utils.jwt import require_token
 from utils.chatbot import get_bot_response
-import time
 
 chatbot_v1_bp = Blueprint('chatbot_v1_bp', __name__, url_prefix='/v1/chatbot')
 
