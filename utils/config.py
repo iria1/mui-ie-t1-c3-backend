@@ -14,3 +14,6 @@ MYSQL_CONN_STR = os.getenv("MYSQL_CONN_STR", "")
 
 # auth
 SECRET_PASSWORD = os.getenv("SECRET_PASSWORD", "changeme")
+
+# openai
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
