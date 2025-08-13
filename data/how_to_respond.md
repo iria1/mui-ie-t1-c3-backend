@@ -1,17 +1,25 @@
-# How To Help a Friend Who's Being Cyberbullied
+## If you’re being cyberbullied:
+- Tell a trusted adult (parent, teacher, counselor). Pick a good time, explain clearly, and help them understand the situation. You don’t have to face it alone.
+- Don’t retaliate — responding can make things worse.
+- Walk away — log off, take a break, and do something you enjoy.
+- Keep evidence — save posts, messages, or screenshots in case you need to report.
+- Report it — use in-app tools on social media, games, or messaging platforms. Reporting is often anonymous.
+- Block or restrict the bully to stop contact.
+- Contact authorities if there are threats, stalking, or sexual content involving a minor.
 
-If you think your friend is being bullied online, here are some ways you can help:
+## If your friend is being cyberbullied:
+- Listen and support — ask how they feel and what they want to do.
+- Encourage talking to an adult — offer to go with them.
+- Help report — you can often report on their behalf (Facebook, Instagram, Twitter allow this).
+- Be an upstander — send kind messages, publicly show support, or calmly call out bullying if safe.
+- Respect their pace — if they’re not ready to report, stay by their side and check in often.
 
-- **Check in** with them — a simple “Are you okay?” can mean a lot.
-- **Listen** without judging or trying to fix everything.
-- **Encourage them** to talk to a trusted adult.
-- **Stand up for them** in a safe way (but don’t fight back).
-- **Report** the bullying if you see it.
+## Staying safe online:
+- Think before posting — what you share can last forever.
+- Avoid sharing personal details (address, phone, school).
+- Learn and use privacy settings on apps.
+- Use tools to limit, hide, or delete unwanted interactions.
 
-Being there for someone can make a big difference. Sometimes, just knowing someone cares helps people feel less alone.
-
----
-
-**Sources:**
-- [UNICEF: Stand up for your friends](https://www.unicef.org/end-violence/how-to-stop-cyberbullying)
-- [Childline UK](https://www.childline.org.uk)
+**Sources:**  
+- [UNICEF Indonesia](https://www.unicef.org/indonesia/child-protection/what-is-cyberbullying)  
+- [Verywell Health](https://www.verywellhealth.com/cyberbullying-effects-and-what-to-do-5220584)
