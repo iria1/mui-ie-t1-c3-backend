@@ -19,8 +19,8 @@ class MemoryEntry:
         self.memory = ChatMemoryBuffer(token_limit=1000)
         self.last_seen = time.time()
 
-# LRU cache with max 2000 concurrent sessions
-user_memories = LRUCache(maxsize=2000)
+# LRU cache with max 100 concurrent sessions
+user_memories = LRUCache(maxsize=100)
 SESSION_TIMEOUT = 600  # 10 minutes
 
 def get_user_memory(session_id: str):
