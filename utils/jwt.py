@@ -1,4 +1,4 @@
-from flask import request, jsonify
+from flask import request, jsonify, g
 import jwt
 from datetime import datetime, timezone
 from functools import wraps
@@ -12,7 +12,8 @@ def create_jwt():
     return jwt.encode(payload, JWT_SECRET, algorithm="HS256")
 
 def decode_jwt(token):
-    return jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
+    payload = jwt.decode(token, JWT_SECRET, algorithms=["HS256"])
+    g.jwt_claims = payload
 
 def require_token(f):
     @wraps(f)
