@@ -51,6 +51,18 @@ def get_session_token():
         }
     }), 200
 
+@chatbot_v1_bp.route('/get_init_message', methods=['GET'])
+@require_token
+def get_init_message():
+    # return a list of messages that the chatbot will write first
+    return jsonify({
+        'data': [
+            'Hello, I\'m Caro! Ask me anything about cyberbullying!',
+            'To start with, here are some questions you can ask me about cyberbullying:\n* What is cyberbullying, and how is it different from regular bullying?\n* What are some examples of cyberbullying?\n* Why is cyberbullying harmful?\n* How can I help a friend who is being cyberbullied?\n* What should I do if I\'m being bullied online?\n* How can I stay safe online and protect my privacy?\n* What does it mean to be an upstander in a cyberbullying situation?\n\nFeel free to ask any of these questions or anything else related to cyberbullying!',
+            'By the way, I only talk about cyberbullying (that\'s my special mission!)'
+        ]
+    }), 200
+
 def verify(token):
     try:
         session_id, tag = token.split('.')
