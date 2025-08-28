@@ -25,13 +25,20 @@ def get_response_from_chatbot():
 
     results = predict_cyberbullying(message)
 
-    score = results['']
+    score = int(results[0]['risk_score'] * 100)
+
+    response_recipient = 'This is what you see if you are the recipient. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+    response_sender = 'This is what you see if you are the sender. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     
     return jsonify({
         'data': {
             'original_message': message,
             'score': score,
             'analysis': analysis,
-            'results': results
+            'results': results,
+            'response': {
+                'recipient': response_recipient,
+                'sender': response_sender
+            }
         }
     }), 200
