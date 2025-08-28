@@ -1,16 +1,11 @@
-import re
+import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 from better_profanity import profanity
-import re
+import pandas as pd
 import numpy as np
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
-from better_profanity import profanity
+import re
 import html
 import joblib
-
-# Initialize sentiment analyzer
-sid = SentimentIntensityAnalyzer()
-sia = SentimentIntensityAnalyzer()
 
 # Kid-friendly explanations with advice
 EXPLANATIONS = {
@@ -135,8 +130,6 @@ def extract_handcrafted_features(texts):
     texts: str, list of str, or pd.Series
     Returns: numpy array of handcrafted features
     """
-    import pandas as pd
-
     # If single string, convert to list
     if isinstance(texts, str):
         texts = [texts]
@@ -182,6 +175,13 @@ def predict_cyberbullying(texts, weights=DEFAULT_WEIGHTS):
 
     return [{"text": t, "predicted_label": int(p), "risk_score": float(r)} 
             for t, p, r in zip(texts, y_pred, avg_proba)]
+
+# Make sure nltk resources are available
+nltk.download("vader_lexicon")
+
+# Initialize sentiment analyzer
+sid = SentimentIntensityAnalyzer()
+sia = SentimentIntensityAnalyzer()
 
 # Handcrafted model pipeline
 handcrafted = joblib.load("pipeline/handcrafted_pipeline.pkl")
