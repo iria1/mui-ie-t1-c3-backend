@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from werkzeug.exceptions import BadRequest
 from utils.utility import validate_request_params, sanitize_string
 from utils.jwt import require_token
-from utils.message_analyzer import analyze_text_words
+from utils.message_analyzer import analyze_text_words, predict_cyberbullying
 
 import random
 
@@ -23,12 +23,15 @@ def get_response_from_chatbot():
 
     analysis = analyze_text_words(message)
 
-    score = random.randint(0, 100)
+    results = predict_cyberbullying(message)
+
+    score = results['']
     
     return jsonify({
         'data': {
             'original_message': message,
             'score': score,
-            'analysis': analysis
+            'analysis': analysis,
+            'results': results
         }
     }), 200
