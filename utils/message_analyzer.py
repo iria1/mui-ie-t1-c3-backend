@@ -13,6 +13,16 @@ EXPLANATIONS = {
     2: "This word may be hurtful. Try not to use it."
 }
 
+SUGGESTION_RECIPIENT = {
+    0: "This is what you see if you are the recipient. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    1: "This is what you see if you are the victim. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+}
+
+SUGGESTION_SENDER = {
+    0: "This is what you see if you are the sender. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    1: "This is what you see if you are the bully. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+}
+
 # Regex patterns
 USER_RE = re.compile(r"@\w+")
 URL_RE = re.compile(r'(?i)\b(?:https?://|www\.)?[a-z0-9-]+\.[a-z0-9-]{2,}(?:/[^ \n]*)?\b')
@@ -175,6 +185,14 @@ def predict_cyberbullying(texts, weights=DEFAULT_WEIGHTS):
 
     return [{"text": t, "predicted_label": int(p), "risk_score": float(r)} 
             for t, p, r in zip(texts, y_pred, avg_proba)]
+
+def give_suggestion(score):
+    if score > 50:
+        index = 1
+    else:
+        index = 0
+    
+    return SUGGESTION_RECIPIENT.get(index), SUGGESTION_SENDER.get(index)
 
 # Make sure nltk resources are available
 nltk.download("vader_lexicon")
