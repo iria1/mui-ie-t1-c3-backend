@@ -14,13 +14,13 @@ EXPLANATIONS = {
 }
 
 SUGGESTION_RECIPIENT = {
-    0: "This is what you see if you are the recipient. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    1: "This is what you see if you are the victim. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    0: "<p style=\"margin-block-end:0px;\">The text may include unfriendly or slightly negative words considered as \"Not Cool\". Although it is not deeply offensive terms, it still can hurt others. The risk score indicates that the language as unfriendly but not necessary as bullying.</p>",
+    1: "<p style=\"margin-block-end:0px;\">The text contains harmful words that are considered as \"No Go\". This makes the message highly offensive and emotionally damaging. The risk score indicates that the language could hurt feelings, lower self-esteem, and be seen as bullying.</p>"
 }
 
 SUGGESTION_SENDER = {
-    0: "This is what you see if you are the sender. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    1: "This is what you see if you are the bully. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    0: "<p style=\"margin-block-end:0px;\">If the message feels uncomfortable, try to understand the context first.<br>Here's what you can do:</p><ol style=\"margin-block-end:0px;\"><li>If it's a misunderstanding, you can calmly ask, \"Did you mean that in a bad way?\"</li><li>If it continues, talk to a friend or adult.</li><li>Do not overreact if it seems like a small disagreement.</li></ol><p style=\"margin-block-end:0px;\"><strong>How to Respond:</strong> Try to stay calm and don't take it personally. Ask politely what they mean or simply move on.</p>",
+    1: "<p style=\"margin-block-end:0px;\">If you see a message like this, do not reply with anger. Here's what you can do:</p><ul style=\"margin-block-end:0px;\"><li>Take a screenshot for evidence.</li><li>Block or mute the sender.</li><li>Report it to a parent, teacher, or trusted adult.</li><li>Remember that hurtful words say more about the bully than about you.</li></ul><p style=\"margin-block-end:0px;\"><strong>How to Respond:</strong> Instead of answering back, say nothing, save the proof, and show it to your teacher, parent or trusted adults.</p>"
 }
 
 # Regex patterns
