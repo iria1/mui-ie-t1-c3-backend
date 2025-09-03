@@ -56,11 +56,12 @@ def analyze_text_words(text):
             elif score <= -0.50:
                 label = 2
 
-            if profanity.contains_profanity(word) or profanity.contains_profanity(lookup_word):
-                label = 2
+            if label == 0:
+                if profanity.contains_profanity(word) or profanity.contains_profanity(lookup_word):
+                    label = 2
 
-            if label == 1 and not profanity.contains_profanity(word) and not profanity.contains_profanity(lookup_word):
-                label = 0
+            # if label == 1 and not profanity.contains_profanity(word) and not profanity.contains_profanity(lookup_word):
+            #     label = 0
 
             explanation = EXPLANATIONS.get(label, None)
             line_results.append({
