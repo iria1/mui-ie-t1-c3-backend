@@ -14,13 +14,13 @@ EXPLANATIONS = {
 }
 
 SUGGESTION_RECIPIENT = {
-    0: "<p style=\"margin-block-end:0px;\">The text may include unfriendly or slightly negative words considered as \"Not Cool\". Although it is not deeply offensive terms, it still can hurt others. The risk score indicates that the language as unfriendly but not necessary as bullying.</p>",
-    1: "<p style=\"margin-block-end:0px;\">The text contains harmful words that are considered as \"No Go\". This makes the message highly offensive and emotionally damaging. The risk score indicates that the language could hurt feelings, lower self-esteem, and be seen as bullying.</p>"
+    0: "<p class=\"fw-bold\">If you are the Receiver:</p><p>I don't think there's anything very harmful in this message, but sometimes words can feel different to each person. If you're unsure or it still bothers you, it's always okay to check with a parent, teacher, or another trusted adult. Remember, it's good to share your feelings and not keep them inside. 💙</p>",
+    1: "<p class=\"fw-bold\">If you are the Receiver:</p><ul><li>This message contains strong harmful words that can hurt feelings deeply.</li><li>Remember: it is not your fault if someone speaks unkindly to you.</li><li>The best step is to protect yourself: don't reply, save the message, and talk to a trusted adult about it.</li><li>If this keeps happening, it may be cyberbullying, and you deserve to feel safe online. Talk to your parents, teachers or trusted adults.</li></ul>"
 }
 
 SUGGESTION_SENDER = {
-    0: "<p style=\"margin-block-end:0px;\">If the message feels uncomfortable, try to understand the context first.<br>Here's what you can do:</p><ol style=\"margin-block-end:0px;\"><li>If it's a misunderstanding, you can calmly ask, \"Did you mean that in a bad way?\"</li><li>If it continues, talk to a friend or adult.</li><li>Do not overreact if it seems like a small disagreement.</li></ol><p style=\"margin-block-end:0px;\"><strong>How to Respond:</strong> Try to stay calm and don't take it personally. Ask politely what they mean or simply move on.</p>",
-    1: "<p style=\"margin-block-end:0px;\">If you see a message like this, do not reply with anger. Here's what you can do:</p><ul style=\"margin-block-end:0px;\"><li>Take a screenshot for evidence.</li><li>Block or mute the sender.</li><li>Report it to a parent, teacher, or trusted adult.</li><li>Remember that hurtful words say more about the bully than about you.</li></ul><p style=\"margin-block-end:0px;\"><strong>How to Respond:</strong> Instead of answering back, say nothing, save the proof, and show it to your teacher, parent or trusted adults.</p>"
+    0: "<p class=\"fw-bold\">If you are the Sender:</p><p>This message doesn't seem harmful, but it's always worth thinking about how your words might sound to others. Sending supportive and kind messages can have a big impact — they can brighten someone's day and make them feel valued. Your words have the power to make life better for the people around you. 🌟</p>",
+    1: "<p class=\"fw-bold\">If you are the Sender:</p><ul><li>This message is very hurtful. Sending words like these can make someone feel sad, lonely, or even scared.</li><li>Before you hit send, ask yourself: \"Would I want someone to say this to me?\"</li><li>A better way is to use supportive words. </li><li>Choose kindness - your words have power to make someone's day better, not worse.</li></ul>"
 }
 
 # Regex patterns
