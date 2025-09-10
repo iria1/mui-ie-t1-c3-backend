@@ -9,7 +9,7 @@ from utils.error_handler import register_error_handlers
 from routes import api_bp
 
 # Create the Flask application
-app = Flask(__name__)
+app = Flask(__name__, static_folder=None)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = MYSQL_CONN_STR
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
